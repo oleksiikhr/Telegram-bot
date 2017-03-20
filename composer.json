@@ -1,0 +1,43 @@
+{
+  "name": "Telegram-bot",
+  "type": "project",
+  "description": "",
+  "keywords": ["telegram", "bot", "api", "game"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "",
+      "role": "Developer"
+    },
+    {
+      "name": "Tima Vertogradov",
+      "role": "Developer",
+      "homepage": "https://github.com/TVertogradov"
+    },
+    {
+      "name": "",
+      "role": "Developer"
+    },
+    {
+      "name": "Alexey Khrusch",
+      "role": "Developer",
+      "homepage": "https://github.com/Alexeykhr"
+    },
+    {
+      "name": "",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0",
+    "usmanhalalit/pixie": "2.*@dev",
+    "ext-pdo": "*",
+    "ext-curl": "*",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "tlg\\": "src/"
+    }
+  }
+}
