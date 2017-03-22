@@ -6,8 +6,8 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "",
-      "role": ""
+      "name": "Boghdan Gamaliy",
+      "role": "Developer"
     },
     {
       "name": "Tima Vertogradov",
@@ -15,8 +15,8 @@
       "homepage": "https://github.com/TVertogradov"
     },
     {
-      "name": "",
-      "role": ""
+      "name": "Arkadii Neskorod",
+      "role": "Developer"
     },
     {
       "name": "Alexey Khrusch",
@@ -24,8 +24,8 @@
       "homepage": "https://github.com/Alexeykhr"
     },
     {
-      "name": "",
-      "role": ""
+      "name": "Kristina Galkina",
+      "role": "Developer"
     }
   ],
   "require": {
