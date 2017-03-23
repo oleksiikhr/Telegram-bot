@@ -33,19 +33,18 @@ class Telegram extends Web
      * @param string $method
      * @param array $params
      * @param string $typeMethod
+     * @param bool $decode
      *
      * @return object
      */
-    public function send($method, $params, $typeMethod = 'GET')
+    public function send($method, $params, $typeMethod = 'GET', $decode = true)
     {
-        if ($typeMethod !== 'POST') {
-            $query = $this->request( self::API_URL . 'bot' . $this->_token . '/'
-                . $method . '?' . http_build_query($params), true );
-        } else {
-            $query = $this->request( self::API_URL . 'bot' . $this->_token . '/'
-                . $method, true, 'POST', http_build_query($params) );
+        if ( mb_strtoupper($typeMethod) !== 'POST' ) {
+            return $this->request( self::API_URL . 'bot' . $this->_token . '/'
+                . $method . '?' . http_build_query($params), $decode );
         }
 
-        return $query;
+        return $this->request( self::API_URL . 'bot' . $this->_token . '/'
+            . $method, $decode, 'POST', http_build_query($params) );
     }
 }
