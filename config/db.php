@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Configuration to bd.
+ * Configuration for bd.
  *
  * @see https://github.com/usmanhalalit/pixie
  */

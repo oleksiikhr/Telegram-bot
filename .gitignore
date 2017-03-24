@@ -6,6 +6,3 @@ Thumbs.db
 
 # composer vendor dir
 /vendor
-
-# hide settings
-/config
