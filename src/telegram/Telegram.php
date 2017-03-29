@@ -47,4 +47,12 @@ class Telegram extends Web
         return $this->request( self::API_URL . 'bot' . $this->_token . '/'
             . $method, $decode, 'POST', http_build_query($params) );
     }
+
+    public function test()
+    {
+        $this->send('sendmessage', [
+            'chat_id' => $json->message->chat->id,
+            'text'    => 'Test: ' . $json->message->text
+        ]);
+    }
 }
