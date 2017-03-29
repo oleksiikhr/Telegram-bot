@@ -48,11 +48,11 @@ class Telegram extends Web
             . $method, $decode, 'POST', http_build_query($params) );
     }
 
-    public function test()
+    public function test($data)
     {
         $this->send('sendmessage', [
-            'chat_id' => $json->message->chat->id,
-            'text'    => 'Test: ' . $json->message->text
+            'chat_id' => $data->message->chat->id,
+            'text'    => 'Test: ' . $data->message->text
         ]);
     }
 }
