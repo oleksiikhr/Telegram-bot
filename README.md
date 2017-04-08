@@ -6,3 +6,9 @@
 1. Автоматический пуш с ветки master в Heroku:
 https://mmorpg-bot.herokuapp.com/
 2. Для БД используется PostgreSQL (до 20 подключений, 10к строк)
+
+Пример вызова клавиатуры для параметра 'reply_markup':
+`$k = Keyboard::replyKeyboardMarkup([
+	[KeyboardButton::new('One btn'), KeyboardButton::new('Two btn')],
+	[KeyboardButton::new('Three btn')]
+]);`

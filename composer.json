@@ -32,14 +32,12 @@
   ],
   "require": {
     "php": ">=7.0.0",
-    "usmanhalalit/pixie": "2.*@dev",
-    "ext-pdo": "*",
-    "ext-curl": "*",
-    "ext-mbstring": "*"
+    "usmanhalalit/pixie": "2.*@dev"
   },
   "autoload": {
     "psr-4": {
-      "tlg\\": "src/"
+      "tlg\\": "src/",
+      "init\\": "init/"
     }
   }
 }

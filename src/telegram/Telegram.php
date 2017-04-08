@@ -3,6 +3,7 @@
 namespace tlg\telegram;
 
 use tlg\Web;
+use tlg\telegram\methods\Parse;
 
 class Telegram extends Web
 {
@@ -48,11 +49,37 @@ class Telegram extends Web
             . $method, $decode, 'POST', http_build_query($params) );
     }
 
-    public function test($data)
+    /**
+     * Initial launch.
+     *
+     * @param object $data
+     *
+     * @return void
+     */
+    public function run($data)
     {
-        $this->send('sendmessage', [
-            'chat_id' => $data->message->chat->id,
-            'text'    => 'Test: ' . $data->message->text
+        new Parse($data);
+    }
+
+    /**
+     * Send message.
+     *
+     * @param int      $chat_id
+     * @param string   $text
+     * @param string   $parse_mode
+     * @param int      $reply_to_message_id
+     * @param Keyboard $reply_markup
+     *
+     * @return object
+     */
+    public function sendMessage($chat_id, $text, $parse_mode = null, $reply_to_message_id = null, $reply_markup = null)
+    {
+        return $this->send('sendMessage', [
+            'chat_id'             => $chat_id,
+            'text'                => $text,
+            'parse_mode'          => $parse_mode,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup'        => $reply_markup
         ]);
     }
 }

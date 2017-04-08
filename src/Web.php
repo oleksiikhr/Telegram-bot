@@ -8,9 +8,9 @@ class Web
      * Send request to website.
      *
      * @param string $url
-     * @param bool $decode
+     * @param bool   $decode
      * @param string $typeMethod
-     * @param array $fields
+     * @param array  $fields
      *
      * @return object
      */
