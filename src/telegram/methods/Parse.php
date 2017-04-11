@@ -4,8 +4,8 @@ namespace tlg\telegram\methods;
 
 class Parse
 {
-    public static $messageID;
     public static $text;
+    public static $messageID;
 
     public static $fromID;
     public static $fromUsername;
@@ -13,12 +13,12 @@ class Parse
 
     public function __construct($data)
     {
-        self::$messageID = $data->message->message_id;
-        self::$text = $data->message->text;
+        self::$text =          $data->message->text;
+        self::$messageID =     $data->message->message_id;
 
-        self::$fromID = $data->message->from->id;
+        self::$fromID =        $data->message->from->id;
+        self::$fromUsername =  $data->message->from->username;
         self::$fromFirstName = $data->message->from->first_name;
-        self::$fromUsername = $data->message->from->username;
 
     }
 }

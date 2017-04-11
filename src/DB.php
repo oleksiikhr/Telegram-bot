@@ -9,6 +9,8 @@ class DB
 {
     protected $db;
 
+    public static const TABLE_USERS = 'users';
+
     static protected $db_inst = null;
 
     /**
@@ -21,9 +23,8 @@ class DB
     public function __construct()
     {
         if ( is_null(self::$db_inst) ) {
-            if ( ! file_exists(TLG_DIR . '/config/db.php') ) {
+            if ( ! file_exists(TLG_DIR . '/config/db.php') )
                 throw new TelegramException('File db.php not found');
-            }
 
             $config = require TLG_DIR . '/config/db.php';
 
