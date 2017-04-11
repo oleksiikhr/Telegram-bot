@@ -4,6 +4,7 @@ namespace tlg\telegram;
 
 use tlg\Web;
 use tlg\telegram\methods\Parse;
+use tlg\telegram\methods\keyboard\Keyboard;
 
 class Telegram extends Web
 {
