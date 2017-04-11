@@ -6,16 +6,16 @@
  * NOTE: Uncomment this lines for local dev.
  */
 
-return [
-    'driver'    => 'mysql',
-    'host'      => 'localhost',
-    'database'  => 'tlg',
-    'username'  => 'root',
-    'password'  => '',
-    'charset'   => 'utf8',
-    'collation' => 'utf8_unicode_ci',
-    'prefix'    => '',
-];
+//return [
+//    'driver'    => 'mysql',
+//    'host'      => 'localhost',
+//    'database'  => 'tlg',
+//    'username'  => 'root',
+//    'password'  => '',
+//    'charset'   => 'utf8',
+//    'collation' => 'utf8_unicode_ci',
+//    'prefix'    => '',
+//];
 
 /**
  * Configuration Heroku for bd. 
