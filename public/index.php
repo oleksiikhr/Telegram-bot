@@ -5,7 +5,7 @@ use tlg\telegram\methods\Parse;
 
 require_once __DIR__ . '/../config/main.php';
 
-if ( ! isset($_REQUEST) ) return;
+if ( empty($_REQUEST) ) return;
 
 $data = json_decode( file_get_contents( 'php://input' ) );
 

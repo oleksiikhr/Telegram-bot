@@ -22,9 +22,8 @@ class Telegram extends Web
      */
     public function __construct($token)
     {
-        if ( empty($token) ) {
+        if ( empty($token) )
             throw new TelegramException("Token is empty");
-        }
 
         $this->_token = $token;
     }
@@ -34,17 +33,16 @@ class Telegram extends Web
      *
      * @param string $method
      * @param array $params
-     * @param string $typeMethod
+     * @param bool $isPost
      * @param bool $decode
      *
      * @return object
      */
-    public function send($method, $params, $typeMethod = 'GET', $decode = true)
+    public function send($method, $params, $isPost = false, $decode = true)
     {
-        if ( mb_strtoupper($typeMethod) !== 'POST' ) {
+        if ($isPost)
             return $this->request( self::API_URL . 'bot' . $this->_token . '/'
                 . $method . '?' . http_build_query($params), $decode );
-        }
 
         return $this->request( self::API_URL . 'bot' . $this->_token . '/'
             . $method, $decode, 'POST', http_build_query($params) );
@@ -81,6 +79,6 @@ class Telegram extends Web
             'parse_mode'          => $parse_mode,
             'reply_to_message_id' => $reply_to_message_id,
             'reply_markup'        => $reply_markup
-        ]);
+        ], true);
     }
 }
