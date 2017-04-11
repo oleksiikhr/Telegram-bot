@@ -9,7 +9,7 @@ class DB
 {
     protected $db;
 
-    public static const TABLE_USERS = 'users';
+    public const TABLE_USERS = 'users';
 
     static protected $db_inst = null;
 

@@ -1,5 +1,6 @@
 <?php if ( empty($_REQUEST) ) return;
 
+use tlg\DB;
 use tlg\telegram\Telegram;
 use tlg\telegram\methods\Parse;
 use tlg\telegram\methods\keyboard\Keyboard;
