@@ -18,7 +18,8 @@ $data = json_decode( file_get_contents( 'php://input' ) );
 $tlg = new Telegram(TOKEN);
 $tlg->run($data);
 
-new tlg\DB();
+// Connect to BD
+//new tlg\DB();
 
 if (Parse::$text === '/start') {
 	// For add new row a database and other.
