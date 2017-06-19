@@ -7,7 +7,7 @@ class Keyboard
     /**
      * Additional interface options.
      *
-     * @param string         $k Keyboard
+     * @param array         $k Keyboard
      * @param bool           $rk Rezise keyboard
      * @param bool           $otk One time keyboard
      * @param bool           $s Selective

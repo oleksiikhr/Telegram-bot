@@ -3,10 +3,9 @@
 namespace tlg\telegram;
 
 use tlg\Web;
-use tlg\telegram\methods\Parse;
 use tlg\telegram\methods\keyboard\Keyboard;
 
-class Telegram extends Web
+class TLG extends Web
 {
     const API_URL = 'https://api.telegram.org/';
 
@@ -20,7 +19,7 @@ class Telegram extends Web
      *
      * @return object
      */
-    public static function send($method, $params, $isPost = false, $decode = true)
+    public static function send($method, $params = [], $isPost = false, $decode = true)
     {
         if ($isPost)
             return self::request( self::API_URL . 'bot' . TLG_TOKEN . '/'

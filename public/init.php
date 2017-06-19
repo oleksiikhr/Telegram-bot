@@ -3,11 +3,13 @@
 require_once __DIR__ . '/main.php';
 
 \QB::query('
-	CREATE TABLE IF NOT EXISTS ' . DB::TABLE_USERS . '(
-		id      INT AUTO_INCREMENT NOT NULL,
-		login   VARCHAR (30)       NOT NULL,
-		message VARCHAR (255)      NOT NULL,
+	CREATE TABLE IF NOT EXISTS users (
+		tlg_id  INT UNIQUE          NOT NULL,
+		login   VARCHAR (30) UNIQUE NOT NULL,
+		method  VARCHAR (255)       NOT NULL,
+		money   INT DEFAULT 100     NOT NULL,
+		rating  INT                 NOT NULL,
+		clan_id INT                 NOT NULL
 		/* And other.. */
-		PRIMARY KEY(ID)
 	)
 ');

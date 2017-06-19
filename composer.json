@@ -4,43 +4,13 @@
   "description": "",
   "keywords": ["telegram", "bot", "api", "game"],
   "license": "MIT",
-  "authors": [
-    {
-      "name": "Boghdan Gamaliy",
-      "role": "Developer",
-      "homepage": "https://github.com/xxxAvadDonxxx"
-    },
-    {
-      "name": "Tima Vertogradov",
-      "role": "Developer",
-      "homepage": "https://github.com/TVertogradov"
-    },
-    {
-      "name": "Arkadii Neskorod",
-      "role": "Developer",
-      "homepage": "https://github.com/Kadey4ik"
-    },
-    {
-      "name": "Alexey Khrusch",
-      "role": "Developer",
-      "homepage": "https://github.com/Alexeykhr"
-    },
-    {
-      "name": "Kristina Galkina",
-      "role": "Developer"
-    }
-  ],
   "require": {
     "php": ">=7.0.0",
-    "usmanhalalit/pixie": "2.*@dev",
-    "ext-pdo": "*",
-    "ext-curl": "*",
-    "ext-mbstring": "*"
+    "usmanhalalit/pixie": "2.*@dev"
   },
   "autoload": {
     "psr-4": {
-      "tlg\\": "src/",
-      "init\\": "init/"
+      "tlg\\": "src/"
     }
   }
 }
