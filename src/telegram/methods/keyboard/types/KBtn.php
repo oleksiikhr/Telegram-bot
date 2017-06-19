@@ -2,7 +2,7 @@
 
 namespace tlg\telegram\methods\keyboard\types;
 
-class KeyboardButton
+class KBtn
 {
     /**
      * This object represents one button of the reply keyboard.

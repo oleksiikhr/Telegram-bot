@@ -3,6 +3,7 @@
 namespace tlg\telegram;
 
 use tlg\Web;
+use tlg\telegram\parse\messages\PFrom;
 use tlg\telegram\methods\keyboard\Keyboard;
 
 class TLG extends Web
@@ -32,19 +33,24 @@ class TLG extends Web
     /**
      * Send message.
      *
-     * @param int      $chat_id
      * @param string   $text
+     * @param int      $chat_id
      * @param string   $parse_mode
-     * @param int      $reply_to_message_id
      * @param Keyboard $reply_markup
+     * @param int      $reply_to_message_id
      *
      * @return object
      */
-    public static function sendMessage($chat_id, $text, $parse_mode = null, $reply_to_message_id = null, $reply_markup = null)
+    public static function sendMessage($text, $chat_id = null, $parse_mode = null, $reply_to_message_id = null, $reply_markup = null)
     {
+        if ( empty($chat_id) && PFrom::$isFrom )
+            $chat_id = PFrom::$id;
+        else
+            return null;
+
         return self::send('sendMessage', [
-            'chat_id'             => $chat_id,
             'text'                => $text,
+            'chat_id'             => $chat_id,
             'parse_mode'          => $parse_mode,
             'reply_to_message_id' => $reply_to_message_id,
             'reply_markup'        => $reply_markup
