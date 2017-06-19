@@ -11,7 +11,7 @@ class Parse
     public static $fromUsername;
     public static $fromFirstName;
 
-    public function __construct($data)
+    public static function run($data)
     {
         self::$text =          $data->message->text;
         self::$messageID =     $data->message->message_id;
@@ -19,6 +19,5 @@ class Parse
         self::$fromID =        $data->message->from->id;
         self::$fromUsername =  $data->message->from->username;
         self::$fromFirstName = $data->message->from->first_name;
-
     }
 }

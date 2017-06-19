@@ -6,3 +6,6 @@ Thumbs.db
 
 # composer vendor dir
 /vendor
+
+# passwords
+config/defines.php

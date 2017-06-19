@@ -16,8 +16,8 @@ class KeyboardButton
 	public static function new($text, $request_contact = null, $request_location = null)
 	{
 		return array_filter([
-			'text' => $text,
-			'request_contact' => $request_contact,
+			'text'             => $text,
+			'request_contact'  => $request_contact,
 			'request_location' => $request_location
 		]);
 	}

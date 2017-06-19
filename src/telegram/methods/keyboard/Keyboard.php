@@ -2,8 +2,6 @@
 
 namespace tlg\telegram\methods\keyboard;
 
-use tlg\telegram\methods\keyboard\types\KeyboardButton;
-
 class Keyboard
 {
     /**

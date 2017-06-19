@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "db29b2e8c50ffe84697d72162f2a64fe",
+    "content-hash": "0f4b67960bc9340024ca4137f1d1efc8",
     "packages": [
         {
             "name": "usmanhalalit/pixie",
@@ -119,7 +119,10 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0.0"
+        "php": ">=7.0.0",
+        "ext-pdo": "*",
+        "ext-curl": "*",
+        "ext-mbstring": "*"
     },
     "platform-dev": []
 }

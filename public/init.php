@@ -1,10 +1,6 @@
 <?php if ( isset($_GET['delete']) ) unlink(__FILE__);
 
-use tlg\DB;
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
-new DB();
+require_once __DIR__ . '/main.php';
 
 \QB::query('
 	CREATE TABLE IF NOT EXISTS ' . DB::TABLE_USERS . '(
