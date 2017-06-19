@@ -27,7 +27,10 @@ User::checkAuth();
 // | START
 // |
 
-if (PMessage::$text === '/me')
-    \tlg\telegram\commands\Tavern::me();
+switch (PMessage::$text) {
+    case '/home': \tlg\telegram\commands\Commands::home(); break;
+    case '/me': \tlg\telegram\commands\Commands::me(); break;
+    case '/top': \tlg\telegram\commands\Commands::goTop(); break;
+}
 
 file_put_contents('./test.txt', $input->update_id + 1);
