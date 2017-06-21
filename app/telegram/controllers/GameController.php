@@ -2,8 +2,8 @@
 
 namespace tlg\telegram\controllers;
 
-use tlg\telegram\helpers\MethodHelpers;
 use tlg\telegram\models\User;
+use tlg\telegram\helpers\MethodHelpers;
 use tlg\telegram\controllers\game\SearchController;
 use tlg\telegram\controllers\game\ChooseController;
 

@@ -8,6 +8,7 @@ use tlg\telegram\models\Search;
 use tlg\telegram\parse\PMessage;
 use tlg\telegram\helpers\MethodHelpers;
 use tlg\telegram\helpers\KeyboardHelpers;
+use tlg\telegram\controllers\TrainingController;
 
 class ChooseController
 {
@@ -26,22 +27,22 @@ class ChooseController
             return;
         }
 
+        if (PMessage::$text === 'Training') {
+            TrainingController::createGame(1, 'training');
+            return;
+        }
+
         Search::addUser(PMessage::$text === 'All modes (without training)' ? 'All modes' : PMessage::$text);
         User::updateMethod(MethodHelpers::SEARCH_GAME);
         TLG::sendMessage('Number of users in search: ' . Search::getCountWaitUsers(), KeyboardHelpers::searchGame());
     }
 
-    public static function chooseGame()
-    {
-        KeyboardHelpers::chooseGame();
-    }
-
     public static function getAllModes()
     {
         return [
-            'Training', 'All modes (without training)',
+            'Training', 'One vs All', 'All modes (without training)',
             'HvsB 1x1', 'HvsB 2x2', 'HvsB 3x3', 'HvsB 4x4',
-            'HvsH 1x1', 'HvsH 2x2', 'HvsH 3x3', 'HvsH 4x4'
+            'HvsH 1x1', 'HvsH 2x2', 'HvsH 3x3', 'HvsH 4x4',
         ];
     }
 }

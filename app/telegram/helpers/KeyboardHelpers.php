@@ -20,8 +20,9 @@ class KeyboardHelpers
     public static function home()
     {
         return Keyboard::replyKeyboardMarkup([
-            [BTN::new(SmileHelpers::SEARCH . ' Find a new game'), BTN::new(SmileHelpers::TRAINING . ' Training')],
-            [BTN::new(SmileHelpers::I . ' About me'), BTN::new(SmileHelpers::INFO . ' About the game')]
+            [BTN::new(SmileHelpers::SEARCH . ' Find a new game')],
+            [BTN::new(SmileHelpers::ABOUT_ME . ' About me')],
+            [BTN::new(SmileHelpers::INFO . ' About the game')]
         ]);
     }
 
@@ -36,7 +37,7 @@ class KeyboardHelpers
     public static function chooseGame()
     {
         return Keyboard::replyKeyboardMarkup([
-            [BTN::new('Training'), BTN::new('All modes (without training)')],
+            [BTN::new('Training'), BTN::new('One vs All'), BTN::new('All modes (without training)')],
             [BTN::new('HvsB 1x1'), BTN::new('HvsB 2x2'), BTN::new('HvsB 3x3'), BTN::new('HvsB 4x4')],
             [BTN::new('HvsH 1x1'), BTN::new('HvsH 2x2'), BTN::new('HvsH 3x3'), BTN::new('HvsB 4x4')],
             [BTN::new(SmileHelpers::HOME . ' Return to main menu')]

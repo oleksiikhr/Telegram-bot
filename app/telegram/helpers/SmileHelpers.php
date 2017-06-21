@@ -23,7 +23,7 @@ class SmileHelpers
     const ATTACK = "\xF0\x9F\x92\xA5";
 
     /* Home */
-    const I = "\xE2\xAD\x90";
+    const ABOUT_ME = "\xE2\xAD\x90";
     const TRAINING = "\xF0\x9F\x94\xA6";
     const INFO = "\xE2\x84\xB9";
     const SEARCH = "\xF0\x9F\x94\x8E";

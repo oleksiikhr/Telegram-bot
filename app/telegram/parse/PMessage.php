@@ -44,6 +44,7 @@ class PMessage
     public static function whichCommand()
     {
         switch (mb_substr(self::$text, 0, 1)) {
+            case SmileHelpers::ABOUT_ME: return '/about_me';
             case SmileHelpers::SEARCH: return '/search';
             case SmileHelpers::HOME: return '/home';
             default: return '';

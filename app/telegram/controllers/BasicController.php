@@ -21,36 +21,29 @@ class BasicController
 
         switch (PMessage::$command) {
             case '/home': self::home(); break;
-            case '/search': self::searchGame(); break;
-            case '/training': self::training(); break;
-            case '/i': self::i(); break;
+            case '/search': self::search(); break;
+            case '/about_me': self::aboutMe(); break;
         }
     }
 
-    // For register
+    // For register and others
     public static function home()
     {
         TLG::sendMessage('Home page', KeyboardHelpers::home());
     }
 
-    public static function training()
-    {
-        TLG::sendMessage('Select an action', KeyboardHelpers::game());
-    }
-
-    public static function searchGame()
+    public static function search()
     {
         TLG::sendMessage('Choose a game', KeyboardHelpers::chooseGame());
         User::updateMethod(MethodHelpers::CHOOSE_GAME);
     }
 
-    public static function i()
+    public static function aboutMe()
     {
         TLG::sendMessage(
             "Name: " . User::getName(). "\n" .
             "Exp: " . User::getExp() . "\n" .
-            "Rating: " . User::getRating() . "\n" .
-            "Clan ID: " . User::getClanID()
+            "Rating: " . User::getRating()
         );
     }
 }

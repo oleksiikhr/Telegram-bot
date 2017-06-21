@@ -31,4 +31,10 @@ class Search
             'game'         => $game
         ]);
     }
+
+    // TODO ..
+    public static function getAllPlayersByGame()
+    {
+
+    }
 }

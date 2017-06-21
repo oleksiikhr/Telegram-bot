@@ -23,13 +23,18 @@ class User
 
         else if (empty(self::getName()) || self::getMethod() === 'registration')
             self::registrationRepeat();
+
+        else
+            return;
+
+        die;
     }
 
     public static function registrationNew()
     {
         TLG::sendMessage("Enter a nickname for your character");
 
-        return \QB::table(self::TABLE)->insert([
+        \QB::table(self::TABLE)->insert([
             'tlg_id' => PFrom::$id,
             'method' => 'registration'
         ]);
@@ -97,6 +102,6 @@ class User
 
     public static function getClanId()
     {
-        return self::$u->clans_id;
+        return empty(self::$u->clans_id) ? 'none' : self::$u->clans_id;
     }
 }

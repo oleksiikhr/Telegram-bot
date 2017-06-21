@@ -9,22 +9,20 @@ class Map
     const TABLE = 'maps';
 
     public static $map;
+    public static $layout;
 
-    public static function setMap($isOne, $isTwo = 0, $isThree = 0, $isFour = 0)
+    public static function run($players)
     {
-        $query = \QB::table(self::TABLE);
+        self::setMap($players);
+        self::parseLayout();
+        self::addPlayers($players);
+    }
 
-        if ($isOne)
-            $query->orWhere('isForOne', '=', 1);
-
-        if ($isTwo)
-            $query->orWhere('isForTwo', '=', 1);
-
-        if ($isThree)
-            $query->orWhere('isForThree', '=', 1);
-
-        if ($isFour)
-            $query->orWhere('isForFour', '=', 1);
+    public static function setMap($players)
+    {
+        $query = \QB::table(self::TABLE)
+            ->where('players', '=', $players)
+            ->orWhere('players', '=', $players + 1);
 
         $query = $query->get();
 
@@ -33,6 +31,8 @@ class Map
 
     public static function parseLayout()
     {
+        // TODO add users on map
+//        $users = Sessions::
         $layout = explode('/', self::$map->layout);
         $out = "";
 
@@ -43,6 +43,11 @@ class Map
             $out .= "\n";
         }
 
-        return $out;
+        self::$layout = $out;
+    }
+
+    public static function getSpawns()
+    {
+        return explode('/', self::$map->layout);
     }
 }
