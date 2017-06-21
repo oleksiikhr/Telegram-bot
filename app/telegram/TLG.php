@@ -41,9 +41,9 @@ class TLG extends Web
     public static function sendMessage($text, $replyMarkup = null)
     {
         return self::send('sendMessage', [
-            'text'                => $text,
-            'chat_id'             => PFrom::$id,
-            'reply_markup'        => $replyMarkup
+            'text'          => $text,
+            'chat_id'       => PFrom::$id,
+            'reply_markup'  => $replyMarkup
         ], true);
     }
 }

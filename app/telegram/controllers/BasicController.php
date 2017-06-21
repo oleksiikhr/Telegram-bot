@@ -2,10 +2,10 @@
 
 namespace tlg\telegram\controllers;
 
-use tlg\telegram\helpers\MethodHelpers;
 use tlg\telegram\TLG;
 use tlg\telegram\models\User;
 use tlg\telegram\parse\PMessage;
+use tlg\telegram\helpers\MethodHelpers;
 use tlg\telegram\helpers\KeyboardHelpers;
 
 class BasicController

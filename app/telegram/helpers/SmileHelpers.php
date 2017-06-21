@@ -31,4 +31,8 @@ class SmileHelpers
     /* Sub home */
     const HOME = "\xF0\x9F\x8F\xA0";
 
+    /* Map */
+    const BLACK = "\xE2\xAC\x9B";
+    const WHITE = "\xE2\xAC\x9C";
+
 }

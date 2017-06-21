@@ -16,7 +16,7 @@ class Search
 
     public static function getGame()
     {
-        return ( \QB::table(self::TABLE)->where('Users_tlg_id', '=', User::getTlgId())->first() )->game;
+        return \QB::table(self::TABLE)->where('Users_tlg_id', '=', User::getTlgId())->first()->game;
     }
 
     public static function deleteUser()
