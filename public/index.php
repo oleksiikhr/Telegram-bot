@@ -29,15 +29,9 @@ User::checkAuth();
 // | START
 // |
 
-//if (User::getMethod())
-//    Basic::identify();
-//else
-//    Game::identify();
-
-switch (PMessage::$text) {
-    case '/home': Basic::home(); break;
-    case '/game': Basic::game(); break;
-    case '/training': Basic::training(); break;
-}
+if ( !empty(User::getMethod()) && User::getMethod() !== 'complete_registration')
+    Game::identify();
+else
+    Basic::identify();
 
 file_put_contents('./test.txt', $input->update_id + 1);

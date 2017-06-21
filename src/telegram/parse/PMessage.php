@@ -2,6 +2,7 @@
 
 namespace tlg\telegram\parse;
 
+use tlg\telegram\Smiles;
 use tlg\telegram\parse\messages\PChat;
 use tlg\telegram\parse\messages\PFrom;
 use tlg\telegram\parse\messages\PEntities;
@@ -13,6 +14,8 @@ class PMessage
     public static $text;
     public static $date;
     public static $messageID;
+
+    public static $command;
 
     public static function set($data)
     {
@@ -34,5 +37,15 @@ class PMessage
 
         if ( isset($message->entities) )
             PEntities::set($message->entities);
+
+        self::$command = self::whichCommand();
+    }
+
+    public static function whichCommand()
+    {
+        switch (mb_substr(self::$text, 0, 1)) {
+            case Smiles::SEARCH: return '/search_game';
+            case Smiles::HOME: return '/home';
+        }
     }
 }

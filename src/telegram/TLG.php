@@ -34,26 +34,21 @@ class TLG extends Web
      * Send message.
      *
      * @param string   $text
-     * @param int      $chat_id
-     * @param string   $parse_mode
-     * @param Keyboard $reply_markup
-     * @param int      $reply_to_message_id
+     * @param int      $chatID
+     * @param string   $parseMode
+     * @param Keyboard $replyMarkup
+     * @param int      $replyToMsgID
      *
      * @return object
      */
-    public static function sendMessage($text, $chat_id = null, $parse_mode = null, $reply_to_message_id = null, $reply_markup = null)
+    public static function sendMessage($text, $chatID = null, $parseMode = null, $replyToMsgID = null, $replyMarkup = null)
     {
-        if ( empty($chat_id) && PFrom::$isFrom )
-            $chat_id = PFrom::$id;
-        else
-            return null;
-
         return self::send('sendMessage', [
             'text'                => $text,
-            'chat_id'             => $chat_id,
-            'parse_mode'          => $parse_mode,
-            'reply_to_message_id' => $reply_to_message_id,
-            'reply_markup'        => $reply_markup
+            'chat_id'             => empty($chatID) ? PFrom::$id : $chatID,
+            'parse_mode'          => $parseMode,
+            'reply_to_message_id' => $replyToMsgID,
+            'reply_markup'        => $replyMarkup
         ], true);
     }
 }

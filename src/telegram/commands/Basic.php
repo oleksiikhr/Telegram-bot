@@ -2,45 +2,36 @@
 
 namespace tlg\telegram\commands;
 
-use tlg\telegram\Smiles;
 use tlg\telegram\TLG;
-use tlg\telegram\methods\keyboard\Keyboard;
-use tlg\telegram\methods\keyboard\types\KBtn;
+use tlg\telegram\tables\User;
+use tlg\telegram\parse\PMessage;
 
 class Basic
 {
     public static function identify()
     {
-
+        switch (PMessage::$command) {
+            case '/search_game': self::searchGame(); break;
+            case '/training': self::training(); break;
+        }
     }
 
+    // For register
     public static function home()
     {
-        $k = Keyboard::replyKeyboardMarkup([
-            [KBtn::new(Smiles::FIND . ' Find a new game'), KBtn::new(Smiles::DIRECT_HIT . ' Training')],
-            [KBtn::new(Smiles::WEAPON . ' Weapons'), KBtn::new(Smiles::GRENADE . ' Grenades')],
-            [KBtn::new(Smiles::CHART . ' Statistics'), KBtn::new(Smiles::INFO . ' About the game')]
-        ]);
-
-        TLG::sendMessage('Home page', null, null, null, $k);
+        TLG::sendMessage('Home page', null, null, null, Keyboards::home());
     }
 
     public static function training()
     {
-
+        TLG::sendMessage('Select an action', null, null, null, Keyboards::game());
     }
 
-    public static function game($isCanFire = true)
+    public static function searchGame()
     {
-        $btnFireOrReload = KBtn::new($isCanFire ? Smiles::FIRE : Smiles::RELOAD);
-
-        $k = Keyboard::replyKeyboardMarkup([
-            [KBtn::new(Smiles::TOP_LEFT), KBtn::new(Smiles::TOP), KBtn::new(Smiles::TOP_RIGHT)],
-            [KBtn::new(Smiles::LEFT), KBtn::new(Smiles::SKIP), KBtn::new(Smiles::RIGHT)],
-            [KBtn::new(Smiles::BOT_LEFT), KBtn::new(Smiles::BOT), KBtn::new(Smiles::BOT_RIGHT)],
-            [KBtn::new(Smiles::GRENADE), $btnFireOrReload, KBtn::new(Smiles::INFO)],
+        TLG::sendMessage('Waiting for players..', null, null, null, Keyboards::searchGame());
+        User::updateUser([
+            'method' => 'search_game'
         ]);
-
-        TLG::sendMessage('Select an action', null, null, null, $k);
     }
 }

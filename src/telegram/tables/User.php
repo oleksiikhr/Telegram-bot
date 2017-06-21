@@ -2,6 +2,7 @@
 
 namespace tlg\telegram\tables;
 
+use tlg\telegram\commands\Game;
 use tlg\telegram\TLG;
 use tlg\telegram\parse\PMessage;
 use tlg\telegram\commands\Basic;
@@ -78,5 +79,15 @@ class User
     public static function getMethod()
     {
         return self::$u->method;
+    }
+
+    public static function getRating()
+    {
+        return self::$u->rating;
+    }
+
+    public static function getExp()
+    {
+        return self::$u->exp;
     }
 }
