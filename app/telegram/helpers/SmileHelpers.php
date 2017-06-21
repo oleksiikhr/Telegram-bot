@@ -28,7 +28,7 @@ class SmileHelpers
     const INFO = "\xE2\x84\xB9";
     const SEARCH = "\xF0\x9F\x94\x8E";
 
-    /* Search */
+    /* Sub home */
     const HOME = "\xF0\x9F\x8F\xA0";
 
 }

@@ -2,6 +2,7 @@
 
 namespace tlg\telegram\controllers;
 
+use tlg\telegram\helpers\MethodHelpers;
 use tlg\telegram\TLG;
 use tlg\telegram\models\User;
 use tlg\telegram\parse\PMessage;
@@ -11,6 +12,8 @@ class BasicController
 {
     public static function identify()
     {
+        echo 'Basic';
+
         if (PMessage::$text === '/home') {
             self::home();
             return;
@@ -27,18 +30,18 @@ class BasicController
     // For register
     public static function home()
     {
-        TLG::sendMessage('Home page', null, null, null, KeyboardHelpers::home());
+        TLG::sendMessage('Home page', KeyboardHelpers::home());
     }
 
     public static function training()
     {
-        TLG::sendMessage('Select an action', null, null, null, KeyboardHelpers::game());
+        TLG::sendMessage('Select an action', KeyboardHelpers::game());
     }
 
     public static function searchGame()
     {
-        TLG::sendMessage('Choose a game', null, null, null, KeyboardHelpers::chooseGame());
-        User::updateUser(['method' => 'choose_game']);
+        TLG::sendMessage('Choose a game', KeyboardHelpers::chooseGame());
+        User::updateMethod(MethodHelpers::CHOOSE_GAME);
     }
 
     public static function i()

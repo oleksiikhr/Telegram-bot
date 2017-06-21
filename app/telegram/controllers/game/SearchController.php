@@ -12,6 +12,8 @@ class SearchController
 {
     public static function identify()
     {
+        echo 'SearchController' . '<br>';
+
         switch (PMessage::$command) {
             case '/home': self::home(); break;
             case '/search': self::search(); break;
@@ -20,10 +22,9 @@ class SearchController
 
     public static function home()
     {
-        TLG::sendMessage('Home page', null, null, null, KeyboardHelpers::home());
-        User::updateUser([
-            'method' => null
-        ]);
+        TLG::sendMessage('Home page', KeyboardHelpers::home());
+        Search::deleteUser();
+        User::updateMethod(null);
     }
 
     public static function search()

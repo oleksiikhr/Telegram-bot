@@ -16,7 +16,7 @@ require_once __DIR__ . '/main.php';
 
     $input = $input->result[0];
 
-    print_r($input);
+    print_r($input); echo '<br><br>';
 
     PMessage::set( $input );
 // END Temporary
@@ -25,9 +25,8 @@ require_once __DIR__ . '/main.php';
 User::checkAuth();
 
 
-// |
-// | START
-// |
+// | ---------------------------------
+
 
 if ( !empty(User::getMethod()) )
     GameController::identify();

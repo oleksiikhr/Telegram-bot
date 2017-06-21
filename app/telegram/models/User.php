@@ -29,7 +29,7 @@ class User
     {
         TLG::sendMessage("Enter a nickname for your character");
 
-        \QB::table(self::TABLE)->insert([
+        return \QB::table(self::TABLE)->insert([
             'tlg_id' => PFrom::$id,
             'method' => 'registration'
         ]);
@@ -63,6 +63,11 @@ class User
     {
         $data['update_time'] = date("Y-m-d H:i:s");
         return \QB::table(self::TABLE)->where('tlg_id', '=', self::$u->tlg_id)->update($data);
+    }
+
+    public static function updateMethod($method)
+    {
+        return self::updateUser(['method' => $method]);
     }
 
     public static function getTlgId()

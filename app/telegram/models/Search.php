@@ -8,12 +8,15 @@ class Search
 
     public static function getCountWaitUsers()
     {
-        return \QB::table(self::TABLE)->where('game', '=', self::getGame())->count();
+        return \QB::table(self::TABLE)
+            ->where('game', '=', self::getGame())
+            ->orWhere('game', '=', 'All modes')
+            ->count();
     }
 
     public static function getGame()
     {
-        return \QB::table(self::TABLE)->where('Users_tlg_id', '=', User::getTlgId())->first();
+        return ( \QB::table(self::TABLE)->where('Users_tlg_id', '=', User::getTlgId())->first() )->game;
     }
 
     public static function deleteUser()
