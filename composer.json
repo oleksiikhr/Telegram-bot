@@ -10,7 +10,7 @@
   },
   "autoload": {
     "psr-4": {
-      "tlg\\": "src/"
+      "tlg\\": "app/"
     }
   }
 }

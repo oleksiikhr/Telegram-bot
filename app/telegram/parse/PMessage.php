@@ -2,10 +2,10 @@
 
 namespace tlg\telegram\parse;
 
-use tlg\telegram\Smiles;
-use tlg\telegram\parse\messages\PChat;
-use tlg\telegram\parse\messages\PFrom;
-use tlg\telegram\parse\messages\PEntities;
+use tlg\telegram\parse\types\PChat;
+use tlg\telegram\parse\types\PFrom;
+use tlg\telegram\helpers\SmileHelpers;
+use tlg\telegram\parse\types\PEntities;
 
 class PMessage
 {
@@ -44,8 +44,9 @@ class PMessage
     public static function whichCommand()
     {
         switch (mb_substr(self::$text, 0, 1)) {
-            case Smiles::SEARCH: return '/search_game';
-            case Smiles::HOME: return '/home';
+            case SmileHelpers::SEARCH: return '/search';
+            case SmileHelpers::HOME: return '/home';
+            default: return '';
         }
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace tlg\telegram;
+namespace tlg\telegram\helpers;
 
-class Smiles
+class SmileHelpers
 {
     /* Game */
     const TOP = "\xE2\xAC\x86";
@@ -28,7 +28,7 @@ class Smiles
     const INFO = "\xE2\x84\xB9";
     const SEARCH = "\xF0\x9F\x94\x8E";
 
-    /* Other */
+    /* Search */
     const HOME = "\xF0\x9F\x8F\xA0";
 
 }

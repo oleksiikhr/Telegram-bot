@@ -1,10 +1,10 @@
 <?php
 
 use tlg\telegram\TLG;
-use tlg\telegram\tables\User;
-use tlg\telegram\commands\Game;
-use tlg\telegram\commands\Basic;
+use tlg\telegram\models\User;
 use tlg\telegram\parse\PMessage;
+use tlg\telegram\controllers\GameController;
+use tlg\telegram\controllers\BasicController;
 
 require_once __DIR__ . '/main.php';
 
@@ -29,9 +29,9 @@ User::checkAuth();
 // | START
 // |
 
-if ( !empty(User::getMethod()) && User::getMethod() !== 'complete_registration')
-    Game::identify();
+if ( !empty(User::getMethod()) )
+    GameController::identify();
 else
-    Basic::identify();
+    BasicController::identify();
 
 file_put_contents('./test.txt', $input->update_id + 1);

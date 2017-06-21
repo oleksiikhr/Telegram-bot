@@ -1,6 +1,6 @@
 <?php
 
-namespace tlg\telegram\parse\messages;
+namespace tlg\telegram\parse\types;
 
 class PEntities
 {

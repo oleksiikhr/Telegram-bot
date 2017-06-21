@@ -1,12 +1,11 @@
 <?php
 
-namespace tlg\telegram\tables;
+namespace tlg\telegram\models;
 
-use tlg\telegram\commands\Game;
 use tlg\telegram\TLG;
 use tlg\telegram\parse\PMessage;
-use tlg\telegram\commands\Basic;
-use tlg\telegram\parse\messages\PFrom;
+use tlg\telegram\parse\types\PFrom;
+use tlg\telegram\controllers\BasicController;
 
 class User
 {
@@ -47,13 +46,13 @@ class User
         else {
             $isUpdate = self::updateUser([
                 'name' => PMessage::$text,
-                'method' => 'complete_registration'
+                'method' => null
             ]);
 
             if ($isUpdate)
             {
                 TLG::sendMessage('You have successfully registered!');
-                Basic::home();
+                BasicController::home();
             }
             else
                 TLG::sendMessage('An error occurred while registering!');
@@ -62,7 +61,7 @@ class User
 
     public static function updateUser($data)
     {
-//        $data['update_time'] = '';
+        $data['update_time'] = date("Y-m-d H:i:s");
         return \QB::table(self::TABLE)->where('tlg_id', '=', self::$u->tlg_id)->update($data);
     }
 
@@ -89,5 +88,10 @@ class User
     public static function getExp()
     {
         return self::$u->exp;
+    }
+
+    public static function getClanId()
+    {
+        return self::$u->clans_id;
     }
 }

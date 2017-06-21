@@ -2,23 +2,23 @@
 
 namespace tlg\telegram\methods\keyboard\types;
 
-class KBtn
+class BTN
 {
     /**
      * This object represents one button of the reply keyboard.
      *
      * @param string $text
-     * @param bool   $request_contact
-     * @param bool   $request_location
+     * @param bool   $requestContact
+     * @param bool   $requestLocation
      *
      * @return array
      */
-	public static function new($text, $request_contact = null, $request_location = null)
+	public static function new($text, $requestContact = null, $requestLocation = null)
 	{
 		return array_filter([
 			'text'             => $text,
-			'request_contact'  => $request_contact,
-			'request_location' => $request_location
+			'request_contact'  => $requestContact,
+			'request_location' => $requestLocation
 		]);
 	}
 }

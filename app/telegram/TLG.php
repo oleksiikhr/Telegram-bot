@@ -3,7 +3,7 @@
 namespace tlg\telegram;
 
 use tlg\Web;
-use tlg\telegram\parse\messages\PFrom;
+use tlg\telegram\parse\types\PFrom;
 use tlg\telegram\methods\keyboard\Keyboard;
 
 class TLG extends Web
