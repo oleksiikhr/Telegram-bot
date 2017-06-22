@@ -1,6 +1,6 @@
 <?php
 
-namespace tlg\telegram\models;
+namespace tlg\telegram\tables;
 
 use tlg\telegram\TLG;
 use tlg\telegram\parse\PMessage;
@@ -13,7 +13,6 @@ class User
 
     const TABLE = 'users';
 
-    // TODO: Add comments
     public static function checkAuth()
     {
         self::$u = \QB::table(self::TABLE)->where('tlg_id', '=', PFrom::$id)->first();
@@ -49,7 +48,7 @@ class User
             TLG::sendMessage('Nickname exists, please try again');
 
         else {
-            $isUpdate = self::updateUser([
+            $isUpdate = self::sqlUpdateUser([
                 'name' => PMessage::$text,
                 'method' => null
             ]);
@@ -64,15 +63,28 @@ class User
         }
     }
 
-    public static function updateUser($data)
+    public static function sqlUpdateUser($data, $tlgID = null)
     {
+        if (empty($tlgID))
+            $tlgID = self::$u->tlg_id;
+
         $data['update_time'] = date("Y-m-d H:i:s");
-        return \QB::table(self::TABLE)->where('tlg_id', '=', self::$u->tlg_id)->update($data);
+        return \QB::table(self::TABLE)->where('tlg_id', '=', $tlgID)->update($data);
     }
 
-    public static function updateMethod($method)
+    public static function sqlUpdateMethod($method = null, $tlgID = null)
     {
-        return self::updateUser(['method' => $method]);
+        return self::sqlUpdateUser(['method' => $method], $tlgID);
+    }
+
+    public static function sqlGetUsersByMethod($method = null, $isCount = false)
+    {
+        if (empty($method))
+            $method = self::getMethod();
+
+        $q = \QB::table(self::TABLE)->where('method', '=', $method);
+
+        return $isCount ? $q->count() : $q->get();
     }
 
     public static function getTlgId()
@@ -95,13 +107,8 @@ class User
         return self::$u->rating;
     }
 
-    public static function getExp()
+    public static function getKills()
     {
-        return self::$u->exp;
-    }
-
-    public static function getClanId()
-    {
-        return empty(self::$u->clans_id) ? 'none' : self::$u->clans_id;
+        return self::$u->kills;
     }
 }

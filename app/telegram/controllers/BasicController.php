@@ -3,7 +3,7 @@
 namespace tlg\telegram\controllers;
 
 use tlg\telegram\TLG;
-use tlg\telegram\models\User;
+use tlg\telegram\tables\User;
 use tlg\telegram\parse\PMessage;
 use tlg\telegram\helpers\MethodHelpers;
 use tlg\telegram\helpers\KeyboardHelpers;
@@ -21,29 +21,28 @@ class BasicController
 
         switch (PMessage::$command) {
             case '/home': self::home(); break;
-            case '/search': self::search(); break;
+            case '/search': self::choose(); break;
             case '/about_me': self::aboutMe(); break;
         }
     }
 
-    // For register and others
     public static function home()
     {
         TLG::sendMessage('Home page', KeyboardHelpers::home());
     }
 
-    public static function search()
+    public static function choose()
     {
-        TLG::sendMessage('Choose a game', KeyboardHelpers::chooseGame());
-        User::updateMethod(MethodHelpers::CHOOSE_GAME);
+        TLG::sendMessage('Choose a game', KeyboardHelpers::chooseGamePlayer());
+        User::sqlUpdateMethod(MethodHelpers::GAME_CHOOSE);
     }
 
     public static function aboutMe()
     {
         TLG::sendMessage(
             "Name: " . User::getName(). "\n" .
-            "Exp: " . User::getExp() . "\n" .
-            "Rating: " . User::getRating()
+            "Rating: " . User::getRating() . "\n" .
+            "Kills: " . User::getKills()
         );
     }
 }

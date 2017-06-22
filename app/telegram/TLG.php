@@ -13,10 +13,10 @@ class TLG extends Web
     /**
      * Send request to telegram.
      *
-     * @param string $method
-     * @param array  $params
      * @param bool   $isPost
      * @param bool   $decode
+     * @param array  $params
+     * @param string $method
      *
      * @return object
      */
@@ -33,16 +33,20 @@ class TLG extends Web
     /**
      * Send message.
      *
+     * @param int      $chatID
      * @param string   $text
      * @param Keyboard $replyMarkup
      *
      * @return object
      */
-    public static function sendMessage($text, $replyMarkup = null)
+    public static function sendMessage($text, $replyMarkup = null, $chatID = null)
     {
+        if (empty($chatID))
+            $chatID = PFrom::$id;
+
         return self::send('sendMessage', [
             'text'          => $text,
-            'chat_id'       => PFrom::$id,
+            'chat_id'       => $chatID,
             'reply_markup'  => $replyMarkup
         ], true);
     }

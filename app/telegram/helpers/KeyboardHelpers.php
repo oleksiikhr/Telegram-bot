@@ -7,6 +7,7 @@ use tlg\telegram\methods\keyboard\types\BTN;
 
 class KeyboardHelpers
 {
+    // TODO angle
     public static function game()
     {
         return Keyboard::replyKeyboardMarkup([
@@ -34,13 +35,21 @@ class KeyboardHelpers
         ]);
     }
 
-    public static function chooseGame()
+    public static function chooseGamePlayer()
     {
         return Keyboard::replyKeyboardMarkup([
-            [BTN::new('Training'), BTN::new('One vs All'), BTN::new('All modes (without training)')],
-            [BTN::new('HvsB 1x1'), BTN::new('HvsB 2x2'), BTN::new('HvsB 3x3'), BTN::new('HvsB 4x4')],
-            [BTN::new('HvsH 1x1'), BTN::new('HvsH 2x2'), BTN::new('HvsH 3x3'), BTN::new('HvsB 4x4')],
+            [BTN::new('Duel'), BTN::new('Deathmatch'), BTN::new('Team Deathmatch')],
             [BTN::new(SmileHelpers::HOME . ' Return to main menu')]
         ]);
+    }
+
+    public static function chooseGameClans()
+    {
+
+    }
+
+    public static function chooseGameTeams()
+    {
+
     }
 }
