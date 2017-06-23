@@ -63,6 +63,11 @@ class User
         }
     }
 
+    public static function sqlGetUserByTlgId($userID)
+    {
+        return \QB::table(self::TABLE)->where('tlg_id', '=', $userID)->first();
+    }
+
     public static function sqlUpdateUser($data, $tlgID = null)
     {
         if (empty($tlgID))

@@ -3,7 +3,7 @@
 require_once __DIR__ . '/main.php';
 
 /*
- * "Создан для непрерывной игры"
+ * Cron every one minutes
  */
 
 

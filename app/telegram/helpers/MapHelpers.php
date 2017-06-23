@@ -13,6 +13,8 @@ class MapHelpers
 
     public static function getMap($tlgID, $gameID)
     {
+        // TODO: if not health => not add
+
         $map = [
             ['w', 'w', 'w', 'w', 'w'],
             ['w', 'w', 'w', 'b', 'w'],
@@ -26,9 +28,9 @@ class MapHelpers
 
         foreach ($users as $user) {
             if ($tlgID === $user->Users_tlg_id)
-                $map[$user->pos_x][$user->pos_y] = self::fromAngleInSmile($user->angle);
+                $map[$user->pos_y][$user->pos_x] = self::fromAngleInSmile($user->angle);
             else
-                $map[$user->pos_x][$user->pos_y] = $myTeam === $user->team ? SmileHelpers::FRIEND : SmileHelpers::ENEMY;
+                $map[$user->pos_y][$user->pos_x] = $myTeam === $user->team ? SmileHelpers::FRIEND : SmileHelpers::ENEMY;
         }
 
         for ($i = 0; $i < 3; $i++) {

@@ -2,8 +2,6 @@
 
 namespace tlg\telegram\tables;
 
-use tlg\telegram\parse\types\PFrom;
-
 class Sessions
 {
     const TABLE = 'sessions';
@@ -25,9 +23,11 @@ class Sessions
         return \QB::table(self::TABLE)->where('Games_id', '=', $gameID)->delete();
     }
 
-    public static function getAllByGamesID($gamesID)
+    public static function getAllByGamesID($gamesID, $inMove = false)
     {
-        return \QB::table(self::TABLE)->where('Games_id', '=', $gamesID)->get();
+        $q = \QB::table(self::TABLE)->where('Games_id', '=', $gamesID);
+
+        return $inMove ? $q->where('health', '>', 0)->orderBy('rnd', 'DESC')->get() : $q->get();
     }
 
     public static function getUserByTlgID($tlgID)
@@ -39,7 +39,7 @@ class Sessions
     {
         return \QB::table(self::TABLE)
             ->where('Games_id', '=', $gameID)
-            ->where('action', '=', null)
+            ->whereNull('action')
             ->count() == 0;
     }
 

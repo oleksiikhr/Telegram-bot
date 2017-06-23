@@ -7,6 +7,7 @@ use tlg\telegram\tables\User;
 use tlg\telegram\parse\PMessage;
 use tlg\telegram\helpers\MethodHelpers;
 use tlg\telegram\helpers\KeyboardHelpers;
+use tlg\telegram\controllers\game\PlayController;
 use tlg\telegram\controllers\game\SearchController;
 use tlg\telegram\controllers\game\ChooseController;
 
@@ -17,7 +18,7 @@ class MethodController
         echo 'MethodController: Method - ' . User::getMethod() . '<br>';
 
         if (User::getMethod() === 'played') {
-            self::played();
+            PlayController::move();
             return;
         }
 
@@ -37,10 +38,5 @@ class MethodController
     {
         TLG::sendMessage('Home page', KeyboardHelpers::home());
         User::sqlUpdateMethod();
-    }
-
-    public static function played()
-    {
-
     }
 }
