@@ -16,8 +16,12 @@ class MethodController
     {
         echo 'MethodController: Method - ' . User::getMethod() . '<br>';
 
-        if (PMessage::$command === '/home')
-        {
+        if (User::getMethod() === 'played') {
+            self::played();
+            return;
+        }
+
+        if (PMessage::$command === '/home') {
             User::sqlUpdateMethod();
             BasicController::home();
         }
@@ -33,5 +37,10 @@ class MethodController
     {
         TLG::sendMessage('Home page', KeyboardHelpers::home());
         User::sqlUpdateMethod();
+    }
+
+    public static function played()
+    {
+
     }
 }

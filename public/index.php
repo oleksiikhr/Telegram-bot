@@ -8,6 +8,9 @@ use tlg\telegram\controllers\BasicController;
 
 require_once __DIR__ . '/main.php';
 
+$arr = ['move', '2', '4'];
+echo json_encode($arr); die;
+
 // Temporary
     $input = TLG::send('getUpdates', ['offset' => file_get_contents('test.txt')]);
 
@@ -26,7 +29,10 @@ require_once __DIR__ . '/main.php';
 User::checkAuth();
 
 if ( ! empty(User::getMethod()) && User::getMethod() === 'played' )
-    \tlg\telegram\controllers\PlayController::currentGame();
+{
+    \tlg\telegram\controllers\game\PlayController::move();
+    return;
+}
 
 
 // | ---------------------------------

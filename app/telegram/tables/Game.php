@@ -12,4 +12,9 @@ class Game
             'game' => $game
         ]);
     }
+
+    public static function deleteByID($gameID)
+    {
+        return \QB::table(self::TABLE)->where('id', '=' , $gameID)->delete();
+    }
 }

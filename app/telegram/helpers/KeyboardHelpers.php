@@ -12,9 +12,9 @@ class KeyboardHelpers
     {
         return Keyboard::replyKeyboardMarkup([
             [BTN::new(SmileHelpers::TOP_LEFT), BTN::new(SmileHelpers::TOP), BTN::new(SmileHelpers::TOP_RIGHT)],
-            [BTN::new(SmileHelpers::LEFT), BTN::new(SmileHelpers::AROUND), BTN::new(SmileHelpers::RIGHT)],
+            [BTN::new(SmileHelpers::LEFT), BTN::new(SmileHelpers::ATTACK), BTN::new(SmileHelpers::RIGHT)],
             [BTN::new(SmileHelpers::BOT_LEFT), BTN::new(SmileHelpers::BOT), BTN::new(SmileHelpers::BOT_RIGHT)],
-            [BTN::new(SmileHelpers::DIRECT_HIT), BTN::new(SmileHelpers::BLOCK), BTN::new(SmileHelpers::BLINK)],
+            [BTN::new(SmileHelpers::FIRE), BTN::new(SmileHelpers::BLOCK), BTN::new(SmileHelpers::BLINK)],
         ]);
     }
 
@@ -41,15 +41,5 @@ class KeyboardHelpers
             [BTN::new('Duel'), BTN::new('Deathmatch'), BTN::new('Team Deathmatch')],
             [BTN::new(SmileHelpers::HOME . ' Return to main menu')]
         ]);
-    }
-
-    public static function chooseGameClans()
-    {
-
-    }
-
-    public static function chooseGameTeams()
-    {
-
     }
 }

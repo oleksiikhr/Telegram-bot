@@ -6,7 +6,6 @@ use tlg\telegram\TLG;
 use tlg\telegram\tables\User;
 use tlg\telegram\parse\PMessage;
 use tlg\telegram\helpers\KeyboardHelpers;
-use tlg\telegram\controllers\PlayController;
 
 class ChooseController
 {
@@ -28,7 +27,7 @@ class ChooseController
 
         TLG::sendMessage('We find users..', KeyboardHelpers::searchGame());
         User::sqlUpdateMethod(PMessage::$text);
-        PlayController::connectPlayers();
+        PlayController::newGame();
     }
 
     public static function getAllModes()
