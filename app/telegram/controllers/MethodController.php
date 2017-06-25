@@ -15,8 +15,6 @@ class MethodController
 {
     public static function identify()
     {
-        echo 'MethodController: Method - ' . User::getMethod() . '<br>';
-
         if (User::getMethod() === 'played') {
             PlayController::move();
             return;

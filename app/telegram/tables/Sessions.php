@@ -23,6 +23,11 @@ class Sessions
         return \QB::table(self::TABLE)->where('Games_id', '=', $gameID)->delete();
     }
 
+    public static function deleteUser($userID)
+    {
+        return \QB::table(self::TABLE)->where('Users_tlg_id', '=', $userID)->delete();
+    }
+
     public static function getAllByGamesID($gamesID, $inMove = false)
     {
         $q = \QB::table(self::TABLE)->where('Games_id', '=', $gamesID);

@@ -7,7 +7,7 @@ use tlg\telegram\methods\keyboard\types\BTN;
 
 class KeyboardHelpers
 {
-    // TODO angle
+    // TODO angle, activate..
     public static function game()
     {
         return Keyboard::replyKeyboardMarkup([

@@ -12,7 +12,6 @@ class ChooseController
     public static function identify()
     {
         // PMessage::$text - game
-        echo 'ChooseController' . '<br>';
 
         if (PMessage::$command === '/home') {
             User::sqlUpdateMethod();

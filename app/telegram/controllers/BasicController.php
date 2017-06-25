@@ -12,8 +12,6 @@ class BasicController
 {
     public static function identify()
     {
-        echo 'Basic';
-
         if (PMessage::$text === '/home') {
             self::home();
             return;

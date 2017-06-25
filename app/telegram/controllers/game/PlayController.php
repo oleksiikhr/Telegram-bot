@@ -54,9 +54,13 @@ class PlayController
 
     public static function move()
     {
-        echo 'MOVE<br>';
-
         $user = Sessions::getUserByTlgID(User::getTlgId());
+
+        // Temporary
+        if ( ! empty($user->action) ) {
+            TLG::sendMessage('You are dead, wait for the end of the game');
+            return;
+        }
 
         if ( ! empty($user->action) ) {
             TLG::sendMessage('Expect to move other players');
@@ -86,75 +90,83 @@ class PlayController
             self::nextRound($user->Games_id);
     }
 
-    // TODO: !!! VERY-VERY BIG AND BAD CODE METHOD !!!
+    // TODO: VERY-VERY BIG METHOD
     public static function nextRound($gameID)
     {
-        echo 'NEXT ROUND<br><br><br>';
-
         $users = Sessions::getAllByGamesID($gameID, true);
+        $count = count($users);
         $msg = "";
-        $k = 0;
 
-        foreach ($users as $user) {
-            $name = User::sqlGetUserByTlgId($user->Users_tlg_id)->name;
-            $k++;
-            $msg .= "#{$k}. ";
+        for ($i = 0; $i < $count; $i++) {
+            $name = User::sqlGetUserByTlgId($users[$i]->Users_tlg_id)->name;
 
-            // TODO: Life is removed depending on the angle.
-            if ($user->action === 'attack') {
-                list($x, $y) = self::direct($user->angle);
-                $x += $user->pos_x;
-                $y += $user->pos_y;
+            if ($users[$i] == null || $users[$i]->health <= 0) {
+                $msg .= "{$i}. {$name} misses a move because of a lack of lives";
+                continue;
+            }
 
-                if ($x === 3 && $y === 1) {
-                    Sessions::updateByTlgID($user->Users_tlg_id, [
-                        'health' => $user->health - 5
-                    ]);
+            // START : ACTION - ATTACK
+            if ($users[$i]->action === 'attack') {
+                list($x, $y) = self::direct($users[$i]->angle);
+                $x += $users[$i]->pos_x;
+                $y += $users[$i]->pos_y;
 
-                    $msg .= "{$name} crashed into the wall [-5hp]";
+                if ( ! self::actionInWall($users[$i]->Users_tlg_id, $users[$i]->health, $x, $y) ) {
+                    $msg .= "{$name} crashed into the wall [-5hp]\n";
+                    $users[$i]->health -= 5;
+                    continue;
                 }
-                // TODO: out cart.. else if ()
-                else {
-                    $isAttacked = false;
 
-                    foreach ($users as $temp) {
-                        if ($temp->health <= 0) { // TODO: check
-                            unset($temp);
-                            continue;
-                        }
+                $moved = true;
 
-                        if ($x == $temp->pos_x && $y == $temp->pos_y) {
-                            Sessions::updateByTlgID($temp->Users_tlg_id, [
-                                'health' => $temp->health - 10
-                            ]);
+                for ($j = 0; $j < $count; $j++) {
+                    if ($i == $j || $users[$j]->health <= 0)
+                        continue;
 
-                            $users[$k - 1]->health = $temp->health - 10;
-                            $enemyName = User::sqlGetUserByTlgId($temp->Users_tlg_id)->name;
-                            $msg .= "{$name} hit {$enemyName} [-10hp]";
-                            $isAttacked = true;
-                            break;
-                        }
+                    if ($users[$i]->team == $users[$j]->team) {
+                        $msg .= "{$name} the user did not hit a friend on command\n";
+                        $moved = false;
+                        break;
                     }
 
-                    if (!$isAttacked) {
-                        Sessions::updateByTlgID($user->Users_tlg_id, [
-                            'pos_x'  => $x,
-                            'pos_y'  => $y
-                        ]);
-                        $users[$k - 1]->pos_x = $x;
-                        $users[$k - 1]->pos_x = $y;
+                    if ($x == $users[$j]->pos_x && $y == $users[$j]->pos_y) {
+                        $power = self::impactForce($users[$i]->angle, $users[$j]->angle);
+                        Sessions::updateByTlgID($users[$j]->Users_tlg_id, [ 'health' => $users[$j]->health - $power ]);
 
-                        $msg .= "{$name} go to {$x}:{$y}";
+                        $users[$j]->health -= $power;
+                        $enemyName = User::sqlGetUserByTlgId($users[$j]->Users_tlg_id)->name;
+                        $msg .= "{$name} hit {$enemyName} [-{$power}hp]\n";
+                        $moved = false;
+                        break;
                     }
+                }
+
+                if ($moved) {
+                    Sessions::updateByTlgID($users[$i]->Users_tlg_id, [ 'pos_x'  => $x, 'pos_y'  => $y ]);
+                    $users[$i]->pos_x = $x;
+                    $users[$i]->pos_x = $y;
+
+                    $msg .= "{$name} go to {$x}:{$y}\n";
                 }
             }
-            // END action - ATTACK
+            // END : ACTION - ATTACK
 
             // TODO: another action..
-            $msg .= "\n";
         }
 
+        // TODO: If team is dead - endGame
+
         foreach ($users as $user) {
+            if ($user->health <= 0) {
+                TLG::sendMessage("You were killed\n\n" .
+                    "$msg\n" . MapHelpers::getMap($user->Users_tlg_id, $user->Games_id),
+                    KeyboardHelpers::home(), $user->Users_tlg_id);
+
+                Sessions::deleteUser($user->Users_tlg_id);
+
+                continue;
+            }
+
             $rnd = rand(0, 100);
 
             Sessions::updateByTlgID($user->Users_tlg_id, [
@@ -163,12 +175,33 @@ class PlayController
             ]);
 
             TLG::sendMessage(
-                "$msg\n" . MapHelpers::getMap($user->Users_tlg_id, $user->Games_id) . "\n\nChance to be the first: {$rnd}",
+                "$msg\n" . MapHelpers::getMap($user->Users_tlg_id, $user->Games_id)
+                    . "\nChance to be the first: {$rnd}\nYou have lives: {$user->health}",
                 KeyboardHelpers::game(), $user->Users_tlg_id
             );
         }
+    }
 
-        // TODO: if user is the lose => self::endGame($gameID);
+    public static function actionInWall($tlgID, $health, $x, $y)
+    {
+        if (($x === 3 && $y === 1) || $x > MapHelpers::getLenX() || $y > MapHelpers::getLenY() || $x < 0 || $y < 0) {
+            Sessions::updateByTlgID($tlgID, [
+                'health' => $health - 5
+            ]);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function impactForce($angleOne, $angleTwo)
+    {
+        $clockwise = abs($angleOne - $angleTwo);
+        $anti = abs($clockwise - 7);
+        $power = $clockwise > $anti ? $anti : $clockwise;
+
+        return ($power + 1) * 10;
     }
 
     // Out x, y

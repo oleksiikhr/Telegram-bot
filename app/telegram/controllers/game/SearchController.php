@@ -10,8 +10,6 @@ class SearchController
 {
     public static function identify()
     {
-        echo 'SearchController' . '<br>';
-
         switch (PMessage::$command) {
             case '/search': self::search(); break;
         }

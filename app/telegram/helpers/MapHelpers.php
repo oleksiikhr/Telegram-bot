@@ -11,6 +11,16 @@ class MapHelpers
         return [0, 1, 2, 1, 0, 3, 2, 3];
     }
 
+    public static function getLenX()
+    {
+        return 4;
+    }
+
+    public static function getLenY()
+    {
+        return 2;
+    }
+
     public static function getMap($tlgID, $gameID)
     {
         // TODO: if not health => not add
@@ -29,7 +39,7 @@ class MapHelpers
         foreach ($users as $user) {
             if ($tlgID === $user->Users_tlg_id)
                 $map[$user->pos_y][$user->pos_x] = self::fromAngleInSmile($user->angle);
-            else
+            elseif ($user->health > 0)
                 $map[$user->pos_y][$user->pos_x] = $myTeam === $user->team ? SmileHelpers::FRIEND : SmileHelpers::ENEMY;
         }
 
