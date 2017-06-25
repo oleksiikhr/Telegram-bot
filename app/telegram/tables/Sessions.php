@@ -6,7 +6,7 @@ class Sessions
 {
     const TABLE = 'sessions';
 
-    public static function add($userID, $gameID, $posX, $posY, $team, $rnd)
+    public static function add($userID, $gameID, $posY, $posX, $team, $rnd)
     {
         return \QB::table(self::TABLE)->insert([
             'Users_tlg_id' => $userID,

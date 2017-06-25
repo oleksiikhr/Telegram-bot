@@ -57,7 +57,7 @@ class PlayController
         $user = Sessions::getUserByTlgID(User::getTlgId());
 
         // Temporary
-        if ( ! empty($user->action) ) {
+        if ( $user->health <= 0 ) {
             TLG::sendMessage('You are dead, wait for the end of the game');
             return;
         }
@@ -99,17 +99,24 @@ class PlayController
 
         for ($i = 0; $i < $count; $i++) {
             $name = User::sqlGetUserByTlgId($users[$i]->Users_tlg_id)->name;
+            $msg = "{$i}. ";
 
             if ($users[$i] == null || $users[$i]->health <= 0) {
-                $msg .= "{$i}. {$name} misses a move because of a lack of lives";
+                $msg .= "{$name} misses a move because of a lack of lives";
                 continue;
             }
 
-            // START : ACTION - ATTACK
-            if ($users[$i]->action === 'attack') {
+            // START : ACTION - ATTACK AND BLINK
+            if ($users[$i]->action === 'attack' || $users[$i]->action === 'blink') {
                 list($x, $y) = self::direct($users[$i]->angle);
                 $x += $users[$i]->pos_x;
                 $y += $users[$i]->pos_y;
+
+                if ($users[$i]->action === 'blink') {
+                    list($px, $py) = self::direct($users[$i]->angle);
+                    $x += $px;
+                    $y += $py;
+                }
 
                 if ( ! self::actionInWall($users[$i]->Users_tlg_id, $users[$i]->health, $x, $y) ) {
                     $msg .= "{$name} crashed into the wall [-5hp]\n";
@@ -132,6 +139,11 @@ class PlayController
                     if ($x == $users[$j]->pos_x && $y == $users[$j]->pos_y) {
                         $power = self::impactForce($users[$i]->angle, $users[$j]->angle);
                         Sessions::updateByTlgID($users[$j]->Users_tlg_id, [ 'health' => $users[$j]->health - $power ]);
+
+                        if ($users[$j]->health - $power <= 0) {
+                            $curUser = User::sqlGetUserByTlgId($users[$j]->Users_tlg_id);
+                            User::sqlUpdateUser(['kills' => $curUser->kills + 1], $users[$j]->Users_tlg_id);
+                        }
 
                         $users[$j]->health -= $power;
                         $enemyName = User::sqlGetUserByTlgId($users[$j]->Users_tlg_id)->name;
@@ -163,6 +175,7 @@ class PlayController
                     KeyboardHelpers::home(), $user->Users_tlg_id);
 
                 Sessions::deleteUser($user->Users_tlg_id);
+                User::sqlUpdateMethod(null, $user->Users_tlg_id);
 
                 continue;
             }
@@ -176,7 +189,7 @@ class PlayController
 
             TLG::sendMessage(
                 "$msg\n" . MapHelpers::getMap($user->Users_tlg_id, $user->Games_id)
-                    . "\nChance to be the first: {$rnd}\nYou have lives: {$user->health}",
+                    . "\nChance to be the first: {$rnd}/100\nYou have lives: {$user->health}",
                 KeyboardHelpers::game(), $user->Users_tlg_id
             );
         }

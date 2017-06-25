@@ -1,4 +1,7 @@
-Общие сведения:
-1. Автоматический пуш с ветки master в Heroku:
-https://mmorpg-bot.herokuapp.com/
-2. Для БД используется PostgreSQL (до 20 подключений, 10к строк)
+![Screen1](other/screen1.png)
+
+![Screen2](other/screen2.png)
+
+![Screen3](other/screen3.png)
+
+![Screen4](other/screen4.png)

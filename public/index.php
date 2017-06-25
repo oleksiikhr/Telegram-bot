@@ -8,8 +8,7 @@ use tlg\telegram\controllers\BasicController;
 
 require_once __DIR__ . '/main.php';
 
-//\tlg\telegram\controllers\game\PlayController::nextRound(2); die;
-//\tlg\telegram\controllers\game\PlayController::endGame(1);
+//\tlg\telegram\tables\Sessions::deleteAllForGameID(5);
 //die;
 
 // Temporary
